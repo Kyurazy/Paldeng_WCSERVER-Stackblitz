@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midterm LAB - ACTIVITY DISCUSSION - VUEJS Basics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #141414, #000);
+            color: #fff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+        }
+        h1 {
+            text-align: center;
+            color: #e50914;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.7);
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+        }
+        h2 {
+            color: #fff;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e50914;
+            padding-bottom: 10px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        h2:hover {
+            color: #e50914;
+            border-color: #fff;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            background: linear-gradient(135deg, #e50914, #b81d24);
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #b81d24, #e50914);
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.7);
+        }
+        input, select, textarea {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            width: calc(100% - 22px); /* Adjust for padding */
+            font-size: 1em;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #e50914;
+            box-shadow: 0 0 8px rgba(229, 9, 20, 0.5);
+        }
+        ol {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #444;
+            transition: background-color 0.3s, padding-left 0.3s;
+        }
+        li:hover {
+            background-color: rgba(229, 9, 20, 0.1);
+            padding-left: 15px;
+        }
+        .highlight {
+            background: rgba(229, 9, 20, 0.2);
+            border-left: 5px solid #e50914;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .highlight:hover {
+            background: rgba(229, 9, 20, 0.3);
+            border-color: #fff;
+        }
+        .link {
+            color: #e50914;
+            text-decoration: none;
+            transition: color 0.3s, text-decoration 0.3s;
+        }
+        .link:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+                margin: 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Midterm LAB - ACTIVITY DISCUSSION - VUEJS Basics</h1>
+
+        <!-- Basic Data Binding -->
+        <div id="app" class="section">
+            <h2>1. Basic Data Binding</h2>
+            <p><strong>Title:</strong> {{ title }}</p>
+            <p><strong>Author:</strong> {{ author }}</p>
+            <p><strong>Age:</strong> {{ age }} years</p>
+            <button v-on:click="age++">Get Older</button>
+            <button v-on:click="age--">Get Younger</button>
+            <button @click="title = 'The title has changed!'">Change Title</button>
+            <hr>
+            <p><strong>Available:</strong> {{ available ? 'Yes' : 'No' }}</p>
+            <button @click="toggleAvailable">Toggle Availability</button>
+            <hr>
+            <p><strong>Rating:</strong> {{ rating }} / 5</p>
+            <button @click="increaseRating">Increase Rating</button>
+            <button @click="decreaseRating">Decrease Rating</button>
+        </div>
+
+        <!-- Two-Way Data Binding -->
+        <div id="two-way-binding" class="section">
+            <h2>2. Two-Way Data Binding</h2>
+            <p><strong>Message:</strong> {{ message }}</p>
+            <input v-model="message" placeholder="Type your message..." />
+            <hr>
+            <p><strong>Selected Fruit:</strong> {{ selectedFruit }}</p>
+            <select v-model="selectedFruit">
+                <option value="apple">Apple</option>
+                <option value="banana">Banana</option>
+                <option value="cherry">Cherry</option>
+            </select>
+            <hr>
+            <p><strong>Feedback:</strong> {{ feedback }}</p>
+            <textarea v-model="feedback" placeholder="Leave your feedback here..."></textarea>
+        </div>
+
+        <!-- Conditional Rendering -->
+        <div id="conditional-rendering" class="section">
+            <h2>3. Conditional Rendering</h2>
+            <span v-if="seen" class="highlight">You can see this message now!</span>
+            <p v-else class="highlight">Message is hidden</p>
+            <button @click="toggleSeen">{{ seen ? 'Hide' : 'Show' }} Message</button>
+            <hr>
+            <p v-if="isLoggedIn">Welcome back, User!</p>
+            <p v-else>Please log in to see more content.</p>
+            <button @click="toggleLogin">{{ isLoggedIn ? 'Log Out' : 'Log In' }}</button>
+        </div>
+
+        <!-- List Rendering and Conditional Display -->
+        <div id="books" class="section">
+            <h2>4. List Rendering and Conditional Display</h2>
+            <div v-if="showBooks">
+                <p><strong>Title:</strong> {{ bookTitle }}</p>
+                <p><strong>Author:</strong> {{ bookAuthor }}</p>
+                <p><strong>Published Year:</strong> {{ publicationYear }}</p>
+                <hr>
+                <h3>Reviews:</h3>
+                <div v-for="review in reviews" :key="review.id">
+                    <p>{{ review.text }} - <em>by {{ review.reviewer }}</em></p>
+                </div>
+            </div>
+            <button @click="toggleShowBooks">
+                <span v-if="showBooks">Hide Books</span>
+                <span v-else>Show Books</span>
+            </button>
+        </div>
+
+        <!-- List Rendering -->
+        <div id="list-rendering" class="section">
+            <h2>5. List Rendering</h2>
+            <ol>
+                <li v-for="task in tasks" :key="task.id">
+                    {{ task.text }} (Due: {{ task.dueDate }})
+                </li>
+            </ol>
+            <hr>
+            <h3>Add a New Task:</h3>
+            <input v-model="newTask" placeholder="New Task" />
+            <input v-model="taskDueDate" type="date" />
+            <button @click="addTask">Add Task</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        // Basic Data Binding
+        const app = Vue.createApp({
+            data() {
+                return {
+                    title: 'The Mysterious Island',
+                    author: 'Jules Verne',
+                    age: 35,
+                    available: true,
+                    rating: 4.5
+                };
+            },
+            methods: {
+                toggleAvailable() {
+                    this.available = !this.available;
+                },
+                increaseRating() {
+                    if (this.rating < 5) this.rating += 0.5;
+                },
+                decreaseRating() {
+                    if (this.rating > 0) this.rating -= 0.5;
+                }
+            }
+        });
+        app.mount('#app');
+
+        // Two-Way Data Binding
+        const twoWayBinding = Vue.createApp({
+            data() {
+                return {
+                    message: 'Hello Vue!',
+                    selectedFruit: 'apple',
+                    feedback: ''
+                };
+            }
+        });
+        twoWayBinding.mount('#two-way-binding');
+
+        // Conditional Rendering
+        const conditionalRendering = Vue.createApp({
+            data() {
+                return {
+                    seen: true,
+                    isLoggedIn: false
+                };
+            },
+            methods: {
+                toggleSeen() {
+                    this.seen = !this.seen;
+                },
+                toggleLogin() {
+                    this.isLoggedIn = !this.isLoggedIn;
+                }
+            }
+        });
+        conditionalRendering.mount('#conditional-rendering');
+
+        // List Rendering and Conditional Display
+        const books = Vue.createApp({
+            data() {
+                return {
+                    showBooks: true,
+                    bookTitle: '1984',
+                    bookAuthor: 'George Orwell',
+                    publicationYear: 1949,
+                    reviews: [
+                        { id: 1, text: 'A thought-provoking novel.', reviewer: 'Emily' },
+                        { id: 2, text: 'A must-read for everyone.', reviewer: 'James' },
+                        { id: 3, text: 'Deeply unsettling but brilliant.', reviewer: 'Sarah' }
+                    ]
+                };
+            },
+            methods: {
+                toggleShowBooks() {
+                    this.showBooks = !this.showBooks;
+                }
+            }
+        });
+        books.mount('#books');
+
+        // List Rendering
+        const listRendering = Vue.createApp({
+            data() {
+                return {
+                    tasks: [
+                        { id: 1, text: 'Complete homework', dueDate: '2024-09-15' },
+                        { id: 2, text: 'Prepare for meeting', dueDate: '2024-09-20' },
+                        { id: 3, text: 'Buy groceries', dueDate: '2024-09-18' },
+                        { id: 4, text: 'Clean the house', dueDate: '2024-09-22' },
+                        { id: 5, text: 'Read a book', dueDate: '2024-09-25' }
+                    ],
+                    newTask: '',
+                    taskDueDate: ''
+                };
+            },
+            methods: {
+                addTask() {
+                    if (this.newTask.trim() && this.taskDueDate) {
+                        this.tasks.push({
+                            id: this.tasks.length + 1,
+                            text: this.newTask,
+                            dueDate: this.taskDueDate
+                        });
+                        this.newTask = '';
+                        this.taskDueDate = '';
+                    }
+                }
+            }
+        });
+        listRendering.mount('#list-rendering');
+    </script>
+</body>
+</html>
